@@ -14,19 +14,21 @@ import org.springframework.web.bind.annotation.*
 class RestApiController @Autowired constructor(
     private val userService: UserService
 ) {
-    @PostMapping("user")
+    @PostMapping("item/addItem")
     fun save(@RequestParam tenant: String, @RequestBody create: UserCreateDto): ResponseEntity<UserDto> {
         TenantContext.setCurrentTenant(tenant)
         return ResponseEntity(userService.save(create), HttpStatus.CREATED)
     }
 
-    @GetMapping("user")
-    fun get(): ResponseEntity<List<UserDto>> {
+    @GetMapping("item/getByTenant/{tenant}")
+    fun get(@RequestParam tenant: String): ResponseEntity<List<UserDto>> {
+        TenantContext.setCurrentTenant(tenant)
         return ResponseEntity(userService.getAll(), HttpStatus.OK)
     }
 
-    @GetMapping("user/getById/{id}")
-    fun getById(@PathVariable id: String): ResponseEntity<UserDto> {
+    @GetMapping("item/getByID/{id}")
+    fun getById(@RequestParam tenant: String,  @PathVariable id: String): ResponseEntity<UserDto> {
+        TenantContext.setCurrentTenant(tenant)
         val user = userService.get(id)
         return if (user == null) {
             ResponseEntity(HttpStatus.NOT_FOUND)
@@ -34,6 +36,20 @@ class RestApiController @Autowired constructor(
             ResponseEntity(user, HttpStatus.OK)
         }
     }
+
+
+    @GetMapping("item/deleteByID/{id}")
+    fun deleteByID(@RequestParam tenant: String, @PathVariable id: String): ResponseEntity<String> {
+        TenantContext.setCurrentTenant(tenant)
+        val user = userService.get(id)
+        return if (user == null) {
+            ResponseEntity("Not found!!",HttpStatus.NOT_FOUND)
+        } else {
+            userService.delete(id)
+            ResponseEntity("Successfully deleted!", HttpStatus.OK)
+        }
+    }
+
 }
 
 

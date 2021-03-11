@@ -5,22 +5,20 @@ import org.marzieh.dto.UserDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
-@Document("user")
+@Document("item")
 class UserDocument(
     @Id
     var id: String?,
-    val phone: Long,
     val name: String,
-    val family: String
+    val link: String
 ) {
     fun toDto() = UserDto(
         id!!,
-        phone,
         name,
-        family
+        link
     )
 }
 
 fun UserCreateDto.to(): UserDocument {
-    return UserDocument(null, phone, name, family)
+    return UserDocument(null, name, link)
 }

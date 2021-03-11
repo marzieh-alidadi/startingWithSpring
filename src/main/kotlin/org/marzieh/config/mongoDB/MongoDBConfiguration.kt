@@ -2,7 +2,7 @@ package org.marzieh.config.mongoDB
 
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
-import com.mongodb.MongoCredential
+//import com.mongodb.MongoCredential
 import com.mongodb.client.internal.MongoClientImpl
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
