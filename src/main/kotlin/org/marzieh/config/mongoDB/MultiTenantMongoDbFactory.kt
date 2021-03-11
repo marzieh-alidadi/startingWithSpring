@@ -8,9 +8,18 @@ class MultiTenantMongoDbFactory(
     mongoClient: MongoClient,
     dbName: String
 ) : SimpleMongoClientDbFactory(mongoClient, dbName) {
+
+    /*
     private val defaultDB = "test"
 
     override fun getMongoDatabase(): MongoDatabase {
         return super.getMongoDatabase(defaultDB)
     }
+     */
+
+    override fun getMongoDatabase(): MongoDatabase {
+        val tenant = TenantContext.getCurrentTenant()
+        return getMongoDatabase(tenant)
+    }
+
 }

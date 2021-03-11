@@ -23,4 +23,9 @@ class UserService @Autowired constructor(
             null
         }
     }
+
+    fun getAll(): List<UserDto>? {
+        return userRepository.findAll().map { it.toDto() }
+    }
+
 }

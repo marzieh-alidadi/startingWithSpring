@@ -9,21 +9,22 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.data.mongodb.core.MongoTemplate
 
+
 @Configuration
 class MongoDbConfiguration {
     @Bean
     @Primary
     fun mongoDbFactory(): MultiTenantMongoDbFactory {
         val dbName = "test"
-        val uri = "localhost:27017"
-        val username = "Marzieh"
-        val password = "123456789"
+        val uri = "mongodb://localhost:27017"
+        //val username = ""
+        //val password = ""
 
-        val mongoCredential = MongoCredential.createCredential(username, "admin", password.toCharArray())
+        //val mongoCredential = MongoCredential.createCredential(username, "admin", password.toCharArray())
 
         val mongoClient = MongoClientImpl(
             MongoClientSettings.builder()
-                .credential(mongoCredential)
+                //.credential(mongoCredential)
                 .applyConnectionString(ConnectionString(uri))
                 .build(),
             null

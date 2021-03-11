@@ -10,15 +10,17 @@ class UserDocument(
     @Id
     var id: String?,
     val phone: Long,
-    val name: String
+    val name: String,
+    val family: String
 ) {
     fun toDto() = UserDto(
         id!!,
         phone,
-        name
+        name,
+        family
     )
 }
 
 fun UserCreateDto.to(): UserDocument {
-    return UserDocument(null, phone, name)
+    return UserDocument(null, phone, name, family)
 }
