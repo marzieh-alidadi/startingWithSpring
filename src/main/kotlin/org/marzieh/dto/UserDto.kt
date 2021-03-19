@@ -1,5 +1,7 @@
 package org.marzieh.dto
 
+import org.marzieh.document.UserDocument
+
 data class UserDto(
     val id: String,
     val phone: Long,

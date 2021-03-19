@@ -1,7 +1,6 @@
 package org.marzieh.dto
 
-import org.marzieh.dto.UserRole
-
+import org.marzieh.document.UserDocument
 
 data class ProfileResponse(
     val id: String,
@@ -10,3 +9,7 @@ data class ProfileResponse(
     val family: String,
     val roles: List<UserRole>
 )
+
+fun UserDto.toPR(): ProfileResponse {
+    return ProfileResponse(id, phone, name, family, listOf(UserRole.USER))
+}
