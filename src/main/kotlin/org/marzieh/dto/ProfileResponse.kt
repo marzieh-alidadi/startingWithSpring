@@ -1,7 +1,5 @@
 package org.marzieh.dto
 
-import org.marzieh.document.UserDocument
-
 data class ProfileResponse(
     val id: String,
     val phone: Long,

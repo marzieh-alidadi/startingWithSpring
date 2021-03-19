@@ -1,13 +1,11 @@
 package org.marzieh.document
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil.matches
 import org.marzieh.dto.UserCreateDto
 import org.marzieh.dto.UserDto
 import org.marzieh.dto.UserRole
 import org.marzieh.dto.UserUpdateDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.security.crypto.password.PasswordEncoder
 
 @Document("user")
 class UserDocument(

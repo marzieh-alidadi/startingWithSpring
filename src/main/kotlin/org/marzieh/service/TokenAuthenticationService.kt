@@ -2,7 +2,6 @@ package org.marzieh.service
 
 import com.google.gson.Gson
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import org.marzieh.config.ApplicationContextProvider
 import org.marzieh.dto.CustomUser
 import org.marzieh.dto.UserDto
@@ -10,28 +9,15 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
-import java.util.*
 import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 
 internal object TokenAuthenticationService {
-    private var EXPIRATION: Long = 864000000
     private var SECRET = "ThisShouldBeSecret"
     private const val TOKEN_PREFIX = "Bearer"
     private const val HEADER_STRING = "Authorization"
 
     private val userService: UserService =
         ApplicationContextProvider().applicationContext().getBean("userService") as UserService
-
-    fun addAuthentication(res: HttpServletResponse, principal: org.springframework.security.core.Authentication) {
-        val userProfile = (principal.principal as CustomUser).profile
-        val jwt = Jwts.builder()
-            .setSubject(Gson().toJson(userProfile))
-            .setExpiration(Date(System.currentTimeMillis() + EXPIRATION))
-            .signWith(SignatureAlgorithm.HS512, SECRET)
-            .compact()
-        res.addHeader(HEADER_STRING, "$TOKEN_PREFIX $jwt")
-    }
 
     fun getAuthentication(request: HttpServletRequest): Authentication? {
         val token = request.getHeader(HEADER_STRING)
